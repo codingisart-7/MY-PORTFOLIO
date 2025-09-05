@@ -1,0 +1,94 @@
+{% extends "base.html" %} {% load static %} {% block title %} Portfolio Detail
+Page {% endblock %} {% block content %}
+
+<main class="main">
+  <!-- Page Title -->
+  <div class="page-title dark-background">
+    <div class="container d-lg-flex justify-content-between align-items-center">
+      <h1 class="mb-2 mb-lg-0">Portfolio Details</h1>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li class="current">Portfolio Details</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <!-- End Page Title -->
+
+  <!-- Portfolio Details Section -->
+  <section id="portfolio-details" class="portfolio-details section">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="row gy-4">
+        <div class="col-lg-8">
+          <div class="portfolio-details-slider swiper init-swiper">
+            <script type="application/json" class="swiper-config">
+              {
+                "loop": true,
+                "speed": 600,
+                "autoplay": {
+                  "delay": 5000
+                },
+                "slidesPerView": "auto",
+                "pagination": {
+                  "el": ".swiper-pagination",
+                  "type": "bullets",
+                  "clickable": true
+                }
+              }
+            </script>
+
+            <div class="swiper-wrapper align-items-center">
+            
+                {% for i in port_item_image %}
+              <div class="swiper-slide">
+                <img
+                  src="{{ i.port_item_detail_image.url }}"
+                  alt="Detail Image 1"
+                />
+              </div>
+              {% endfor %}
+            </div>
+
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
+            <h3>Project information</h3>
+            <ul>
+              <li>
+                <strong>Category</strong>: {{ portfolio_slug.port_item_category }}
+              </li>
+              <li>
+                <strong>Client</strong>: {{ portfolio_slug.port_item_detail_client }}
+              </li>
+              <li>
+                <strong>Project date</strong>: {{ portfolio_slug.port_item_created_date }}
+              </li>
+              {% if portfolio_slug.port_item_detail_project_url %}
+                <li>
+                    <strong>Project URL</strong>:
+                    <a href="{{ portfolio_slug.port_item_detail_project_url }}" target="_blank">{{ portfolio_slug.port_item_detail_project_url }}</a>
+                    </li>
+{% endif %}
+
+            </ul>
+          </div>
+          <div
+            class="portfolio-description"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
+            <h2>{{ portfolio_slug.port_item_title }}</h2>
+            <p>{{ portfolio_slug.port_item_detail_description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /Portfolio Details Section -->
+</main>
+
+{% endblock %}

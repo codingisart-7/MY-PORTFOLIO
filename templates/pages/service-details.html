@@ -1,0 +1,57 @@
+{% extends "base.html" %} 
+
+{% load static %} 
+
+{% block title_block %}
+    Service details
+{% endblock %} 
+
+{% block content %}
+<main class="main">
+    <!-- Page Title -->
+    <div class="page-title dark-background">
+        <div class="container d-lg-flex justify-content-between align-items-center">
+            <h1 class="mb-2 mb-lg-0">{{ service.service_name }} Service Detail</h1>
+            <nav class="breadcrumbs">
+                <ol>
+                    <li><a href="/">Home</a></li>
+                    <li class="current">Service Details</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- End Page Title -->
+
+    <!-- Service Details Section -->
+    <section id="service-details" class="service-details section">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <img src="{{ service.service_image.url }}" alt="" class="img-fluid services-img" />
+                    <div class="services-list">
+                        {% for i in port_services %}
+                        <a href="{% url 'service-details' i.service_slug %}" class="{% if i.service_slug == service.service_slug %}active{% endif %}">{{ i.service_name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                    <h3>{{ service.service_name }}</h3>
+                    <p>{{ service.Service_long_detail}}</p>
+                    <ul>
+                        {% for i in port_ser_detail_des %}
+                        <li>
+                            <i class="bi bi-check-circle"></i>
+                            <span>{{ i.service_description }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <p>{{ service.service_extra_detailed|safe }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /Service Details Section -->
+</main>
+
+{% endblock %}
